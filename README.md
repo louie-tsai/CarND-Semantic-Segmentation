@@ -1,9 +1,12 @@
 # Semantic Segmentation
 ### Introduction
 In this project, you'll label the pixels of a road in images using a Fully Convolutional Network (FCN).
+
 We used pre-trained VGG16 network as below diagram.
 ![original VGG](./data/VGG16.png)
+
 We loaded the pre-trained VGG16 and get the layer 3, layer 4, and layer 7 for FCN.
+
     graph = tf.get_default_graph()
     tf.saved_model.loader.load(sess,[vgg_tag],vgg_path)
     i1 = graph.get_tensor_by_name(vgg_input_tensor_name)
@@ -11,6 +14,7 @@ We loaded the pre-trained VGG16 and get the layer 3, layer 4, and layer 7 for FC
     l3 = graph.get_tensor_by_name(vgg_layer3_out_tensor_name)
     l4 = graph.get_tensor_by_name(vgg_layer4_out_tensor_name)
     l7 = graph.get_tensor_by_name(vgg_layer7_out_tensor_name)
+
 
 ![FCN](./data/FCN.png)
 ### Setup
