@@ -49,7 +49,11 @@ Finally, We deconv the skip_layer_2 with a 8x8 kernel as Deconv3.
   
     deconv_8x8_3 = tf.layers.conv2d_transpose(skip_layer_2, num_classes, 16, 8 , padding = 'same',
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
-    
+
+
+We "adaptive moment estimation" to optimize the network.
+
+
 ### Setup
 ##### GPU
 `main.py` will check to make sure you are using GPU - if you don't have a GPU on your system, you can use AWS or another cloud computing platform.
