@@ -3,9 +3,12 @@
 In this project, you'll label the pixels of a road in images using a Fully Convolutional Network (FCN).
 
 We used pre-trained VGG16 network as below diagram.
+
 ![original VGG](./data/VGG16.png)
 
+
 We loaded the pre-trained VGG16 and get the layer 3, layer 4, and layer 7 for FCN.
+
 
     graph = tf.get_default_graph()
     tf.saved_model.loader.load(sess,[vgg_tag],vgg_path)
@@ -17,6 +20,7 @@ We loaded the pre-trained VGG16 and get the layer 3, layer 4, and layer 7 for FC
 
 
 ![FCN](./data/FCN.png)
+
 For FCN, We convt the VGG layer 7 and deconv it with a 2x2 kernel into Deconv1.
 
     conv_1x1_vgg7 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1 , padding = 'same',
