@@ -53,8 +53,23 @@ Finally, We deconv the skip_layer_2 with a 8x8 kernel as Deconv3.
 
 We "adaptive moment estimation" to optimize the network.
 
+### Results
 
-### Setup
+![skip1](./data/um_000002_skip.png)
+
+![skip2](./data/um_000003_skip.png)
+
+![skip3](./data/um_000006_skip.png)
+
+If I remove the skip layer and only use vgg layer 7 as the input of deconv layers.
+the results became like below diagram.
+
+![skip1](./data/um_000002.png)
+
+![skip2](./data/um_000003.png)
+
+![skip3](./data/um_000006.png)
+
 ##### GPU
 `main.py` will check to make sure you are using GPU - if you don't have a GPU on your system, you can use AWS or another cloud computing platform.
 ##### Frameworks and Packages
