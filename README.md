@@ -17,6 +17,35 @@ We loaded the pre-trained VGG16 and get the layer 3, layer 4, and layer 7 for FC
 
 
 ![FCN](./data/FCN.png)
+For FCN, We convt the VGG layer 7 and deconv it with a 2x2 kernel into Deconv1.
+
+    conv_1x1_vgg7 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1 , padding = 'same',
+			kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+    deconv_2x2_1 = tf.layers.conv2d_transpose(conv_1x1_vgg7, num_classes, 4, 2 , padding = 'same',
+                        kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+                        
+Then we convt the VGG layer 4, and add up this conv layer with Deconv1 into a skip_layer_1 .                       
+                        
+    conv_1x1_vgg4 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1 , padding = 'same',
+			kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+    skip_layer_1 = tf.add(deconv_2x2_1,conv_1x1_vgg4)
+ 
+ We deconv the skip_layer_1 with a 2x2 kernel as Deconv2.
+    
+    deconv_2x2_2 = tf.layers.conv2d_transpose(skip_layer_1 , num_classes, 4, 2 , padding = 'same',
+                        kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+                        
+we convt the VGG layer 3, and add up this conv layer with Deconv2 into a skip_layer_2 .                           
+                        
+    conv_1x1_vgg3 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1 , padding = 'same',
+			kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+    skip_layer_2 = tf.add(deconv_2x2_2,conv_1x1_vgg3)
+  
+Finally, We deconv the skip_layer_2 with a 8x8 kernel as Deconv3.
+  
+    deconv_8x8_3 = tf.layers.conv2d_transpose(skip_layer_2, num_classes, 16, 8 , padding = 'same',
+                        kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+    
 ### Setup
 ##### GPU
 `main.py` will check to make sure you are using GPU - if you don't have a GPU on your system, you can use AWS or another cloud computing platform.
