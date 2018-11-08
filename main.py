@@ -6,6 +6,7 @@ import warnings
 from distutils.version import LooseVersion
 import project_tests as tests
 import time
+from datetime import timedelta
 
 LEARNING_RATE = 1e-4
 EPOCHS = 20
@@ -143,7 +144,7 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
                            learning_rate: LEARNING_RATE}
             )
             losses.append(loss)
-        #print("[Epoch: {0}/{1} Loss: {2:4f} Time: {3}]".format(epoch + 1, epochs, loss, str(timedelta(seconds=(time.time() - s_time)))))
+        print("[Epoch: {0}/{1} Loss: {2:4f} Time: {3}]".format(epoch + 1, epochs, loss, str(timedelta(seconds=(time.time() - s_time)))))
 tests.test_train_nn(train_nn)
 
 
