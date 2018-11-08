@@ -61,13 +61,33 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     :return: The Tensor for the last layer of output
     """
     # TODO: Implement function
-    conv_1x1 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1 , padding = 'same',
+    # 1x1 convolution of vgg layer 7
+    conv_1x1_vgg7 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1 , padding = 'same',
 			kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
-    deconv_2x2_1 = tf.layers.conv2d_transpose(conv_1x1, num_classes, 4, 2 , padding = 'same',
+	
+    # Deconv1 : upsample deconvolution 2 x 2
+    deconv_2x2_1 = tf.layers.conv2d_transpose(conv_1x1_vgg7, num_classes, 4, 2 , padding = 'same',
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
-    deconv_2x2_2 = tf.layers.conv2d_transpose(deconv_2x2_1, num_classes, 4, 2 , padding = 'same',
+
+    # 1x1 convolution of vgg layer 4
+    conv_1x1_vgg4 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1 , padding = 'same',
+			kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+    # Adding skip layer.
+    skip_layer_1 = tf.add(deconv_2x2_1,conv_1x1_vgg4)
+	
+    # Deconv2 : upsample deconvolution 2 x 2
+    deconv_2x2_2 = tf.layers.conv2d_transpose(skip_layer_1 , num_classes, 4, 2 , padding = 'same',
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
-    deconv_8x8_3 = tf.layers.conv2d_transpose(deconv_2x2_2, num_classes, 16, 8 , padding = 'same',
+    
+    # 1x1 convolution of vgg layer 3
+    conv_1x1_vgg3 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1 , padding = 'same',
+			kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+
+    # Adding skip layer.
+    skip_layer_2 = tf.add(deconv_2x2_2,conv_1x1_vgg3)
+
+    # Deconv3 : upsample deconvolution 8 x 8
+    deconv_8x8_3 = tf.layers.conv2d_transpose(skip_layer_2, num_classes, 16, 8 , padding = 'same',
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     #tf.Print(deconv_2x2_1,tf.shape(deconv_2x2_1)[1:3])
     return deconv_8x8_3
