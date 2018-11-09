@@ -55,11 +55,11 @@ We "adaptive moment estimation" to optimize the network.
 
 ### Results
 
-![skip1](./data/um_000002_skip.png)
+![skip1](./data/um_000002_skip_100.png)
 
-![skip2](./data/um_000003_skip.png)
+![skip2](./data/um_000003_skip_100.png)
 
-![skip3](./data/um_000006_skip.png)
+![skip3](./data/um_000006_skip_100.png)
 
 If I remove the skip layer and only use vgg layer 7 as the input of deconv layers.
 the results became like below diagram.
