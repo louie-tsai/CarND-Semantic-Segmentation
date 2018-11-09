@@ -74,6 +74,15 @@ the results became like below diagram.
 
 ![skip3](./data/um_000006.png)
 
+If I only use 20 epoches instead of 100 epoches, you will see some wrong classified pixeles all over the picture.
+
+![skip1](./data/um_000002_skip.png)
+
+![skip2](./data/um_000003_skip.png)
+
+![skip3](./data/um_000006_skip.png)
+
+
 ##### GPU
 `main.py` will check to make sure you are using GPU - if you don't have a GPU on your system, you can use AWS or another cloud computing platform.
 ##### Frameworks and Packages
