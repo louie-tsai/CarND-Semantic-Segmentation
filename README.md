@@ -55,6 +55,12 @@ We "adaptive moment estimation" to optimize the network.
 
 ### Results
 
+I used below parameters for the final result.
+	LEARNING_RATE = 1e-4
+	EPOCHS = 100
+	BATCH_SIZE = 8
+	KEEP_PROB = 0.8
+
 ![skip1](./data/um_000002_skip_100.png)
 
 ![skip2](./data/um_000003_skip_100.png)
