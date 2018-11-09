@@ -61,6 +61,10 @@ We "adaptive moment estimation" to optimize the network.
 
 ![skip3](./data/um_000006_skip_100.png)
 
+Here is the diagram to track loss over epoches, and the loss goes down to >0.1 after 50 epoches.
+![skip3](./data/fcn_loss_100.png)
+
+
 If I remove the skip layer and only use vgg layer 7 as the input of deconv layers.
 the results became like below diagram.
 
